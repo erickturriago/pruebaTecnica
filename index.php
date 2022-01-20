@@ -16,7 +16,6 @@
         <br>
         <h1 class="text-center">Listado de terceros</h1>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registro">Agregar</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarcedula">Editar</button>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrar">Borrar</button>
         <table class="table">
         <thead>
@@ -26,6 +25,7 @@
             <th scope="col" class="text-center">Identificación</th>
             <th scope="col" class="text-center">Nombres</th>
             <th scope="col" class="text-center">Tipo Tecero</th>
+            <th scope="col" class="text-center">Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +45,8 @@
                  <td align="center"><?php echo ($tercero['nombre1'] ." ".$tercero['nombre2']." ".
                  $tercero['apellido1']." ".$tercero['apellido2'])?></td><!--Index 10-->
                  <td align="center"><?php echo $tercero['nombtipo']?></td><!--Index 11-->
+                 <td align="center"><button type="button" class="btn btn-primary editbtn" data-toggle="modal" data-target="#editar">Editar</button></td>
+                 
              </tr>
              <?php }?>
         </tbody>
@@ -115,96 +117,70 @@
     
     </div>
 
-    <!-- Modal Editar Pedir Cedula-->
-    <div class="modal fade" id="editarcedula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Formulario Agregar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form action="registrar.php" method="POST">
-                <div class="form-group´">
-                    <label for="">Ingrese el número de documento</label required>
-                    <input type="number" class="form-control" name="numerodocumentoedit" id="numerodocumentoedit">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary editbtn" data-dismiss="modal" data-toggle="modal" data-target="#editar" >Continuar</button>
-                    
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    </div>
+<!-- Modal Editar-->
+<div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formulario Editar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="php/editar.php" method="POST">
+          <input type="hidden" name="id" id="update_id">
+            <div class="form-group´">
+                <label for="">Primer nombre</label>
+                <input type="text" class="form-control" name="primerNombre" id="primerNombre" required>
 
-    <!-- Modal Editar-->
-    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Formulario Agregar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form action="../php/registrar.php" method="POST">
-                <div class="form-group´">
-                    <label for="">Primer nombre</label>
-                    <input type="text" class="form-control" name="primerNombre" id="primerNombre"required>
+                <label for="">Segundo nombre</label>
+                <input type="text" class="form-control" name="segundoNombre" id="segundoNombre">
 
-                    <label for="">Segundo nombre</label>
-                    <input type="text" class="form-control" name="segundoNombre">
+                <label for="">Primer apellido</label>
+                <input type="text" class="form-control" name="primerApellido" id="primerApellido" required>
 
-                    <label for="">Primer apellido</label>
-                    <input type="text" class="form-control" name="primerApellido" required>
+                <label for="">Segundo apellido</label>
+                <input type="text" class="form-control" name="segundoApellido" id="segundoApellido">
 
-                    <label for="">Segundo apellido</label>
-                    <input type="text" class="form-control" name="segundoApellido">
+                <label for="">Tipo de documento</label >
+                <select class="form-select" aria-label="Default select example" id="tipodocumento" name="tipodocumento" required>
+                  <option selected>Seleccione el tipo de documento</option>
+                  <option value="CC">CC</option>
+                  <option value="CE">CE</option>
+                  <option value="NIP">NIP</option>
+                  <option value="NIT">NIT</option>
+                  <option value="TI">TI</option>
+                  <option value="PAP">PAP</option>
+                </select>
 
-                    <label for="">Tipo de documento</label>
-                    <select class="form-select" aria-label="Default select example" id="tipodocumento" name="tipodocumento" required>
-                    <option selected>Seleccione el tipo de documento</option>
-                    <option value="CC">CC</option>
-                    <option value="CE">CE</option>
-                    <option value="NIP">NIP</option>
-                    <option value="NIT">NIT</option>
-                    <option value="TI">TI</option>
-                    <option value="PAP">PAP</option>
-                    </select>
-
-                    <label for="">Número de documento</label required>
-                    <input type="number" class="form-control" name="numerodocumento">
+                <label for="">Número de documento</label required>
+                <input type="number" class="form-control" name="numerodocumento" id="numerodocumento">
 
 
-                    <label for="">Departamento</label>
-                    <select class="form-select" aria-label="Default select example" id="departamento2" name="departamento2" required>
-                    </select>
-            
-                    <label for="">Municipio</label>
-                    <select class="form-select" aria-label="Default select example" class="form-select" aria-label="Default select example" 
-                    id="municipio2" name="municipio2" required></select>
-
-                    <label for="">Tipo tercero</label>
-                    <select class="form-select" aria-label="Default select example" id="tipoTercero2" name="tipoTercero2" required>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
-        </div>
+                <label for="">Departamento</label>
+                <select class="form-select" aria-label="Default select example" id="departamento2" name="departamento2" required>
+                </select>
         
-        </div>
+                <label for="">Municipio</label>
+                <select class="form-select" aria-label="Default select example" class="form-select" aria-label="Default select example" 
+                id="municipio2" name="municipio2" required></select>
+
+                <label for="">Tipo tercero</label>
+                <select class="form-select" aria-label="Default select example" id="tipoTercero2" name="tipoTercero2" required>
+                </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+      </div>
+      
     </div>
-    
-    </div>
+  </div>
+  
+</div>
 
     <!-- Modal Borrar Pedir Cedula-->
     <div class="modal fade" id="borrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
