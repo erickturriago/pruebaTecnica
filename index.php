@@ -15,7 +15,9 @@
     <div class="container">
         <br>
         <h1 class="text-center">Listado de terceros</h1>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insertar">Agregar</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registro">Agregar</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar">Editar</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Borrar</button>
         
         <table class="table">
         <thead>
@@ -37,6 +39,70 @@
         </tbody>
         </table>
     </div>
+
+    <!-- Modal Registrar-->
+    <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Formulario Agregar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="registrar.php" method="POST">
+                <div class="form-group´">
+                    <label for="">Primer nombre</label>
+                    <input type="text" class="form-control" name="primerNombre" required>
+
+                    <label for="">Segundo nombre</label>
+                    <input type="text" class="form-control" name="segundoNombre">
+
+                    <label for="">Primer apellido</label>
+                    <input type="text" class="form-control" name="primerApellido" required>
+
+                    <label for="">Segundo apellido</label>
+                    <input type="text" class="form-control" name="segundoApellido">
+
+                    <label for="">Tipo de documento</label>
+                    <select class="form-select" aria-label="Default select example" id="tipodocumento" name="tipodocumento" required>
+                    <option selected>Seleccione el tipo de documento</option>
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="NIP">NIP</option>
+                    <option value="NIT">NIT</option>
+                    <option value="TI">TI</option>
+                    <option value="PAP">PAP</option>
+                    </select>
+
+                    <label for="">Número de documento</label required>
+                    <input type="number" class="form-control" name="numerodocumento">
+
+
+                    <label for="">Departamento</label>
+                    <select class="form-select" aria-label="Default select example" id="departamento" name="departamento" required>
+                    </select>
+            
+                    <label for="">Municipio</label>
+                    <select class="form-select" aria-label="Default select example" class="form-select" aria-label="Default select example" 
+                    id="municipio" name="municipio" required></select>
+
+                    <label for="">Tipo tercero</label>
+                    <select class="form-select" aria-label="Default select example" id="tipoTercero" name="tipoTercero" required>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+        
+        </div>
+    </div>
     
+    </div>
+
 </body>
 </html>
