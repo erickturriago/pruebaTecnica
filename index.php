@@ -16,9 +16,8 @@
         <br>
         <h1 class="text-center">Listado de terceros</h1>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registro">Agregar</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar">Editar</button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Borrar</button>
-        
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarcedula">Editar</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrar">Borrar</button>
         <table class="table">
         <thead>
             <tr>
@@ -30,12 +29,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
+        <?php include_once("php/getTerceros.php");?>
+            <?php foreach ($terceros as $tercero){?>
+             <tr>
+                <td style="display:none;"><?php echo $tercero['id']?></td> <!--Index 0-->
+                 <td align="center" ><?php echo $tercero['nombdepa']?></td> <!--Index 1-->
+                 <td align="center" text-transform: uppercase><?php echo $tercero['nombmuni']?></td> <!--Index 2-->
+                 <td style="display:none;"><?php echo ($tercero['tipoidentificacion'])?></td> <!--Index 3-->
+                 <td style="display:none;"><?php echo ($tercero['numeroidentificacion'])?></td><!--Index 4-->
+                 <td align="center"><?php echo ($tercero['tipoidentificacion'] ." ".$tercero['numeroidentificacion'])?></td><!--Index 5-->
+                 <td style="display:none;"><?php echo ($tercero['nombre1'])?></td><!--Index 6-->
+                 <td style="display:none;"><?php echo ($tercero['nombre2'])?></td><!--Index 7-->
+                 <td style="display:none;"><?php echo ($tercero['apellido1'])?></td><!--Index 8-->
+                 <td style="display:none;"><?php echo ($tercero['apellido2'])?></td><!--Index 9-->
+                 <td align="center"><?php echo ($tercero['nombre1'] ." ".$tercero['nombre2']." ".
+                 $tercero['apellido1']." ".$tercero['apellido2'])?></td><!--Index 10-->
+                 <td align="center"><?php echo $tercero['nombtipo']?></td><!--Index 11-->
+             </tr>
+             <?php }?>
         </tbody>
         </table>
     </div>
@@ -51,7 +62,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form action="registrar.php" method="POST">
+            <form action="php/registrar.php" method="POST">
                 <div class="form-group´">
                     <label for="">Primer nombre</label>
                     <input type="text" class="form-control" name="primerNombre" required>
@@ -81,20 +92,20 @@
 
 
                     <label for="">Departamento</label>
-                    <select class="form-select" aria-label="Default select example" id="departamento" name="departamento" required>
+                    <select class="form-select" aria-label="Default select example" id="departamento1" name="departamento1" required>
                     </select>
             
                     <label for="">Municipio</label>
                     <select class="form-select" aria-label="Default select example" class="form-select" aria-label="Default select example" 
-                    id="municipio" name="municipio" required></select>
+                    id="municipio1" name="municipio1" required></select>
 
                     <label for="">Tipo tercero</label>
-                    <select class="form-select" aria-label="Default select example" id="tipoTercero" name="tipoTercero" required>
+                    <select class="form-select" aria-label="Default select example" id="tipoTercero1" name="tipoTercero1" required>
                     </select>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
@@ -103,6 +114,128 @@
     </div>
     
     </div>
+
+    <!-- Modal Editar Pedir Cedula-->
+    <div class="modal fade" id="editarcedula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Formulario Agregar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="registrar.php" method="POST">
+                <div class="form-group´">
+                    <label for="">Ingrese el número de documento</label required>
+                    <input type="number" class="form-control" name="numerodocumentoedit" id="numerodocumentoedit">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary editbtn" data-dismiss="modal" data-toggle="modal" data-target="#editar" >Continuar</button>
+                    
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal Editar-->
+    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Formulario Agregar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="../php/registrar.php" method="POST">
+                <div class="form-group´">
+                    <label for="">Primer nombre</label>
+                    <input type="text" class="form-control" name="primerNombre" id="primerNombre"required>
+
+                    <label for="">Segundo nombre</label>
+                    <input type="text" class="form-control" name="segundoNombre">
+
+                    <label for="">Primer apellido</label>
+                    <input type="text" class="form-control" name="primerApellido" required>
+
+                    <label for="">Segundo apellido</label>
+                    <input type="text" class="form-control" name="segundoApellido">
+
+                    <label for="">Tipo de documento</label>
+                    <select class="form-select" aria-label="Default select example" id="tipodocumento" name="tipodocumento" required>
+                    <option selected>Seleccione el tipo de documento</option>
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="NIP">NIP</option>
+                    <option value="NIT">NIT</option>
+                    <option value="TI">TI</option>
+                    <option value="PAP">PAP</option>
+                    </select>
+
+                    <label for="">Número de documento</label required>
+                    <input type="number" class="form-control" name="numerodocumento">
+
+
+                    <label for="">Departamento</label>
+                    <select class="form-select" aria-label="Default select example" id="departamento2" name="departamento2" required>
+                    </select>
+            
+                    <label for="">Municipio</label>
+                    <select class="form-select" aria-label="Default select example" class="form-select" aria-label="Default select example" 
+                    id="municipio2" name="municipio2" required></select>
+
+                    <label for="">Tipo tercero</label>
+                    <select class="form-select" aria-label="Default select example" id="tipoTercero2" name="tipoTercero2" required>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+        
+        </div>
+    </div>
+    
+    </div>
+
+    <!-- Modal Borrar Pedir Cedula-->
+    <div class="modal fade" id="borrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Formulario Eliminar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="php/borrar.php" method="POST">
+                <div class="form-group´">
+                    <label for="">Ingrese el número de documento</label required>
+                    <input type="number" class="form-control" name="numerodocumentoborrar" id="numerodocumentoborrar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Continuar</button>
+                    
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/listas_modal_agregar.js"></script>
+    <script src="js/editar.js"></script>
 
 </body>
 </html>
